@@ -29,11 +29,6 @@ def initialPositions():
   rock_vx = 0 # Zero the x component of the rock velocity
   rock_vy = 0 # Zero the y component of the rock velocity
 
-# ---------------------------------------
-
-# Starting settings for the game
-gameOver = False # The game has not finished yet
-initialPositions() # Set the initial positions of the spacecraft and rock
 
 # ---------------------------------------
 
@@ -123,3 +118,7 @@ def update():
     spacecraft.image = 'spacecraft_destroyed'
     gameOver = True
   
+
+# Starting settings for the game
+gameOver = False # The game has not finished yet
+initialPositions() # Set the initial positions of the spacecraft and rock
