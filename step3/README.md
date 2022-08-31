@@ -1,4 +1,4 @@
-# step 3 - add a laser to the spacecraft
+# Step 3: add a laser to the spacecraft
 
 1. Let's create a laser rectangle, positioned off the screen initially. Add this to below our declaration of the spacecraft and rock objects.
 ```
@@ -109,3 +109,6 @@ if laserFiring:
     screen.draw.filled_rect(laser,(0,255,0))
 ```
  
+  [Go back to step 2](../step2)
+
+  [Go back to step 1](../step1)
