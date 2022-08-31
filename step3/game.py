@@ -9,9 +9,9 @@ HEIGHT = 500
 spacecraft = Actor('spacecraft')    # The spacecraft actor
 rock = Actor('rock') # Rock actor with the same image
 
-# Create the laser rect
+# Create the laser rect with width 2 and height 1000
 # (Not within the screen area.)
-laser = Rect((0,-HEIGHT*4), (2, 1000))  
+laser = Rect((0, -HEIGHT*4), (2, 1000))  
 
 # The centre of the screen
 centre_x = WIDTH/2
@@ -23,24 +23,31 @@ laserCharged = True
 laserFiring = False
 rmRock = False
 
-# The score
+# Global variables for score and top score
 score = 0
 topScore = 0
+
+#=============================================================
+#                        FUNCTIONS
+#=============================================================
+
 # ---------------------------------------
 
-def startingPosition():
-  # A random position along the top of the screen
-  return (random.randint(0, WIDTH), 0)
-
-# ---------------------------------------
-
-def startingVelocity():
-  # A random velocity, going downwards away from the top of the screen.
-  return (random.randint(-5, 5), random.randint(1, 5))
+def initialPositions():
+  # set initial positions for spacecraft
+  # run this before running update() and draw() and after game over
+  global spacecraft
+  global score
+  spacecraft.image = 'spacecraft' # In case it has been destroyed
+  # Initial position and velocity
+  spacecraft.pos = centre_x, centre_y # Inital position of the spacecraft
+  initialRockPosition()  # Set the initial rock position and image.
+  score = 0 # Reset the score, since the game has just begun.
 
 # ---------------------------------------
 
 def initialRockPosition():
+  # set initial positions for rock - called from initialPositions()
   global rock
   global rock_vx
   global rock_vy
@@ -66,19 +73,15 @@ def initialRockPosition():
 
 # ---------------------------------------
 
-def initialPositions():
-  global spacecraft
-  global score
-  spacecraft.image = 'spacecraft' # In case it has been destroyed
-  # Initial position and velocity
-  spacecraft.pos = centre_x, centre_y # Inital position of the spacecraft
-  initialRockPosition()  # Set the initial rock position and image.
-  score = 0 # Reset the score, since the game has just begun.
+def startingPosition():
+  # A random position along the top of the screen
+  return (random.randint(0, WIDTH), 0)
 
 # ---------------------------------------
 
-# Starting settings for the game
-initialPositions()
+def startingVelocity():
+  # A random velocity, going downwards away from the top of the screen.
+  return (random.randint(-5, 5), random.randint(1, 5))
 
 # ---------------------------------------
 
@@ -88,7 +91,7 @@ def laserFiringComplete():
   laserFiring = False # Set the firing flag, to show the laser beam
 
   # Use the clock to prevent the player from firing the laser straight
-  # away.
+  # away. Delay for 1 sec before setting laserCharged = True
   clock.schedule(laserChargingComplete, 1.0)
 
 # ---------------------------------------
@@ -106,31 +109,6 @@ def removeRock():
   global rmRock
   # Set the rock removal flag, to make sure that the rock is removed.
   rmRock = True
-
-# ---------------------------------------
-
-def draw():
-  global laser
-  screen.clear()
-  spacecraft.draw()
-  rock.draw()
-
-  # Draw the score information at the bottom of the screen.
-  screen.draw.text("Score : "+str(score), center=(centre_x-100, HEIGHT-10.))
-  screen.draw.text("Top Score : "+str(topScore), center=(centre_x+100, HEIGHT-10.))
-
-  # If the laser is currently firing, then draw it.
-  if laserFiring:
-    screen.draw.filled_rect(laser,(0,255,0))
-
-  # Check to see if the game is over
-  if gameOver:
-    # If the game is over, then print a series of red rectangles
-    # with a text message.
-    for i in range(20,-5,-5):
-      screen.draw.filled_rect(Rect((centre_x-(100+i), centre_y-(30+i)), (200+(i*2), 80+(i*2))), (200-(i*8), 0, 0))
-    screen.draw.text("GAME OVER!", center=(centre_x, centre_y))
-    screen.draw.text("(n to restart)", center=(centre_x, centre_y+20))
 
 # ---------------------------------------
 
@@ -179,7 +157,7 @@ def updateRock():
   # Move the y position by the corresponding velocity component
   rock.y += rock_vy
 
-# ---------------------------------------
+#=========function update() - run repeatedly before function draw()
 
 def update():
   global gameOver
@@ -225,3 +203,37 @@ def update():
     # Set the timer to wait for a 1/5 of a second before removing the
     # destroyed rock from view.
     clock.schedule(removeRock, 0.2)
+
+#=========function draw() - run repeatedly after function update()
+
+def draw():
+  global laser
+  screen.clear()
+  spacecraft.draw()
+  rock.draw()
+
+  # Draw the score information at the bottom of the screen.
+  screen.draw.text("Score : "+str(score), center=(centre_x-100, HEIGHT-10.))
+  screen.draw.text("Top Score : "+str(topScore), center=(centre_x+100, HEIGHT-10.))
+
+  # If the laser is currently firing, then draw it.
+  if laserFiring:
+    screen.draw.filled_rect(laser,(0,255,0))
+
+  # Check to see if the game is over
+  if gameOver:
+    # If the game is over, then print a series of red rectangles
+    # with a text message.
+    for i in range(20,-5,-5):
+      screen.draw.filled_rect(Rect((centre_x-(100+i), centre_y-(30+i)), (200+(i*2), 80+(i*2))), (200-(i*8), 0, 0))
+    screen.draw.text("GAME OVER!", center=(centre_x, centre_y))
+    screen.draw.text("(Press n to restart)", center=(centre_x, centre_y+20))
+
+#=============================================================
+#                        MAIN CODE
+#=============================================================
+
+# Starting settings for the game
+initialPositions()
+
+
