@@ -1,4 +1,4 @@
-# Create a rocket, can move in 4 directions from keyboard
+# Step 1: create a rocket, write code to move it in four directions using the keyboard
 
 1. Let's create the size of the screen
 ```
