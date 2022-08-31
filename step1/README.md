@@ -1,6 +1,6 @@
 # Step 1: create a rocket, write code to move it in four directions using the keyboard
 
-1. Let's create the size of the screen
+1. Let's set the size of the screen
 ```
 WIDTH = 600
 HEIGHT = 500
