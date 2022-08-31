@@ -4,4 +4,4 @@ This is a simple Python game using Pygame Zero. You write code to create a rocke
 
 Let's get started!
 
-[Go to step 1](../step1)
+[Go to step 1](./step1)
