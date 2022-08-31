@@ -18,7 +18,7 @@ topScore = 0
 ```
 rmRock = False
 ```
-5. Create a new function called initailRockPositions, we are going to have a special function for the rock's initial position. Move most of this code is from from the initialPosition function from step 2.
+5. Create a new function called `initialRockPositions`. We are going to have a special function for the rock's initial position. Most of this code is from from the initialPosition function from step 2, so you can cut and paste it from there to save typing.
 ```
 def initialRockPosition():
   global rock
