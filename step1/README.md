@@ -33,4 +33,4 @@ def update():
 ```
 5. Now test your code. 
 
-[Go to step 2](../Step2)
+[Go to step 2](../step2)
