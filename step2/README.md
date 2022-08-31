@@ -1,4 +1,4 @@
-# Step 2 - add a rock
+# Step 2: add a rock
 
 1. The rock will be moving randomly across the screen, so we need to include the Random library to provide this functionality. Add the top of your code, add the following, as the first line:
 ```
@@ -137,3 +137,7 @@ if collision:
       gameOver = False
  ```
  19. Now save and test your code - if everything works ok then proceed to the step 3. 
+ 
+ [Go to step 3](../step3)
+ 
+ [Go back to step 1](../step1)
